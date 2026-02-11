@@ -1,8 +1,10 @@
-import Card from '../components/Card/Card.jsx';
+import FilterableMovieList from '../components/FilterableMovieList/FilterableMovieList.jsx';
 import { useJsonLoad } from '../hooks/useJsonLoad';
 
 function App() {
   const { data: movies, loading, error } = useJsonLoad();
+
+  console.log(movies);
   return (
     <div>
       <header>
@@ -11,10 +13,7 @@ function App() {
       <main>
         <div className="main-content">
           {loading && <p>Loading...</p>}
-          {movies &&
-            movies.map((movie) => {
-              return <Card key={movie.id} movie={movie} />;
-            })}
+          {movies.length > 0 && <FilterableMovieList movies={movies} />}
           {error && <p>{error}</p>}
         </div>
       </main>
