@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 
 export function useJsonLoad() {
-  const [data, setData] = useState([{}]);
+  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     setLoading(true);
-    setData([{}]);
+    setData([]);
     setError(null);
     fetch('/json/movies.json')
       .then((res) => {
