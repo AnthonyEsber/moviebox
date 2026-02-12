@@ -1,31 +1,29 @@
-import FilterableMovieList from '../components/FilterableMovieList/FilterableMovieList.jsx';
-import { useJsonLoad } from '../hooks/useJsonLoad';
-import useLocalStorage from '../hooks/useLocalStorage.js';
+import { BrowserRouter, Route, Routes } from 'react-router';
+import Home from '../routes/Home';
+import WatchList from '../routes/WatchList';
+import Header from '../components/Header/Header';
+import useLocalStorage from '../hooks/useLocalStorage';
 
 function App() {
-  const { data: movies, loading, error } = useJsonLoad();
   const [watchList, setWatchList] = useLocalStorage('watchList', []);
-
-  console.log(movies);
   return (
-    <div>
-      <header>
-        <h1>MovieBox</h1>
-      </header>
-      <main>
-        <div className="main-content">
-          {loading && <p>Loading...</p>}
-          {movies.length > 0 && (
-            <FilterableMovieList
-              watchList={watchList}
-              setWatchList={setWatchList}
-              movies={movies}
+    <BrowserRouter>
+      <div>
+        <header>
+          <Header />
+          <h1>MovieBox</h1>
+        </header>
+        <main>
+          <Routes>
+            <Route path="/" element={<Home watchList={watchList} setWatchList={setWatchList} />} />
+            <Route
+              path="/watchlist"
+              element={<WatchList watchList={watchList} setWatchList={setWatchList} />}
             />
-          )}
-          {error && <p>{error}</p>}
-        </div>
-      </main>
-    </div>
+          </Routes>
+        </main>
+      </div>
+    </BrowserRouter>
   );
 }
 

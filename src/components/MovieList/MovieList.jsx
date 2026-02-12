@@ -1,6 +1,12 @@
 import Card from '../Card/Card';
 
-export function MovieList({ movies, filterTitle, selectedGenre, watchList, setWatchList }) {
+export function MovieList({
+  movies,
+  filterTitle = null,
+  selectedGenre = '',
+  watchList,
+  setWatchList,
+}) {
   return (
     <div>
       {movies
