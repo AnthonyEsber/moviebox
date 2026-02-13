@@ -1,0 +1,97 @@
+.movieCard {
+  display: flex;
+  flex-direction: column;
+  background: #14181c;
+  border-radius: 4px;
+  overflow: hidden;
+  transition: all 0.2s ease;
+  height: 100%;
+  position: relative;
+}
+
+.movieCard:hover .movieImage {
+  border-color: #00c030;
+}
+
+.movieDetails {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0;
+}
+
+.movieImage {
+  width: 100%;
+  aspect-ratio: 2/3;
+  object-fit: cover;
+  background: #0d1111;
+  display: block;
+  border-radius: 4px;
+  border: 2px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+.movieTitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #9ab;
+  margin: 0.5rem 0 0.25rem 0;
+  line-height: 1.3;
+  line-clamp: 2;
+  overflow: hidden;
+  transition: color 0.2s ease;
+}
+
+.movieCard:hover .movieTitle {
+  color: #fff;
+}
+
+.movieGenre {
+  font-size: 0.7rem;
+  color: #678;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.movieRating {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #00c030;
+  margin: 0;
+}
+
+.movieWatchList {
+  margin-top: auto;
+  padding: 0.5rem 0 0;
+}
+
+.movieWatchList button {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #456;
+  background: transparent;
+  color: #9ab;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.movieWatchList button:hover {
+  background: #00c030;
+  border-color: #00c030;
+  color: #fff;
+}
+
+.movieWatchList button:active {
+  background: #00a028;
+  border-color: #00a028;
+  color: #fff;
+}

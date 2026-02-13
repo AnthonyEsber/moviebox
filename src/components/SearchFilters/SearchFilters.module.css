@@ -1,0 +1,39 @@
+.movieSearch {
+  margin-bottom: 2rem;
+}
+
+.movieSearch form {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 1rem 0;
+  border-bottom: 1px solid #213342;
+}
+
+.movieSearch span {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #9ab;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+.movieSearch input[type='text'] {
+  flex: 1;
+  min-width: 200px;
+  padding: 0.6rem 0.75rem;
+  background: #2c3440;
+  border: 1px solid #456;
+  border-radius: 4px;
+  color: #dce1e6;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.movieSearch input[type='text']:focus {
+  outline: none;
+  border-color: #00c030;
+  box-shadow: 0 0 0 2px rgba(0, 192, 48, 0.15);
+}

@@ -1,4 +1,5 @@
 import DropdownMenu from '../DropdownMenu/DropdownMenu';
+import style from './SearchFilters.module.css';
 
 function SearchFilters({
   genres,
@@ -8,9 +9,9 @@ function SearchFilters({
   onSelectedGenreChange,
 }) {
   return (
-    <div className="movies-search">
+    <div className={style.movieSearch}>
       <form>
-        <span>BROWSE BY GENGRE</span>
+        <span>BROWSE BY GENRE</span>
         <DropdownMenu
           selectedGenre={selectedGenre}
           onSelectedGenreChange={onSelectedGenreChange}

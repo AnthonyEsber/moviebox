@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import MovieList from '../MovieList/MovieList';
 import SearchFilters from '../SearchFilters/SearchFilters';
+import style from './FilterableMovieList.module.css';
 
 function FilterableMovieList({ movies, watchList, setWatchList }) {
   const genres = [...new Set(movies.map((movie) => movie.genre))];
@@ -8,7 +9,7 @@ function FilterableMovieList({ movies, watchList, setWatchList }) {
   const [selectedGenre, setSelectedGenre] = useState('');
 
   return (
-    <div>
+    <div className={style.movieContainer}>
       <SearchFilters
         filterTitle={filterTitle}
         genres={genres}

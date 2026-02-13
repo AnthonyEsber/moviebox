@@ -11,7 +11,7 @@ function App() {
       <div>
         <header>
           <Header />
-          <h1>MovieBox</h1>
+          <h1>Movieboxt</h1>
         </header>
         <main>
           <Routes>
