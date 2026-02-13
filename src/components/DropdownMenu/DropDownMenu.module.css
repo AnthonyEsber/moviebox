@@ -1,0 +1,28 @@
+.filtersDropdown {
+  display: inline-block;
+}
+
+.filtersDropdown select {
+  padding: 0.6rem 0.75rem;
+  background: #2c3440;
+  border: 1px solid #456;
+  border-radius: 4px;
+  color: #dce1e6;
+  font-family: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  appearance: none;
+  padding-right: 2rem;
+  min-width: 140px;
+}
+
+.filtersDropdown select:focus {
+  outline: none;
+  border-color: #00c030;
+  box-shadow: 0 0 0 2px rgba(0, 192, 48, 0.15);
+}
+
+.filtersDropdown select option {
+  background: #2c3440;
+  color: #dce1e6;
+}

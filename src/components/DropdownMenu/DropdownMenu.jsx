@@ -1,6 +1,8 @@
+import styles from './DropdownMenu.module.css';
+
 function DropdownMenu({ selectedGenre, onSelectedGenreChange, genres }) {
   return (
-    <div className="movies-search-dropdown">
+    <div className={styles.filtersDropdown}>
       <select
         value={selectedGenre}
         onChange={(e) => {

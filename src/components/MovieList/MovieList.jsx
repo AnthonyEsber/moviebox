@@ -1,4 +1,5 @@
 import Card from '../Card/Card';
+import styles from './MovieList.module.css';
 
 export function MovieList({
   movies,
@@ -8,7 +9,7 @@ export function MovieList({
   setWatchList,
 }) {
   return (
-    <div>
+    <div className={styles.movieGrid}>
       {movies
         .filter((movie) => {
           const title = movie.title.toLowerCase() ?? '';

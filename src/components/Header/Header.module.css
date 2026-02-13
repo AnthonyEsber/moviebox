@@ -1,0 +1,32 @@
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+nav .navLink {
+  padding: 0.5rem 1.2rem;
+  background: transparent;
+  border: 1px solid transparent;
+  color: #9ab;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+nav .navLink:hover {
+  color: #fff;
+}
+
+nav .navLink.active {
+  color: #fff;
+  border-bottom: 2px solid #00c030;
+  border-radius: 0;
+}
