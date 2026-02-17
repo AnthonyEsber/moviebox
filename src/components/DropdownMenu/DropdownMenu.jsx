@@ -1,19 +1,25 @@
 import styles from './DropdownMenu.module.css';
 
-function DropdownMenu({ selectedGenre, onSelectedGenreChange, genres }) {
+function DropdownMenu({ selectedOption, onSelectOptionChange, options, isSorting = false }) {
   return (
     <div className={styles.filtersDropdown}>
       <select
-        value={selectedGenre}
+        value={selectedOption}
         onChange={(e) => {
-          onSelectedGenreChange(e.target.value);
+          onSelectOptionChange(e.target.value);
           console.log(e.target.value);
         }}
       >
-        <option key="all" value="">
-          All
-        </option>
-        {genres.map((genre) => (
+        {isSorting ? (
+          <option key="default" value="">
+            Default
+          </option>
+        ) : (
+          <option key="all" value="">
+            All
+          </option>
+        )}
+        {options.map((genre) => (
           <option key={genre} value={genre}>
             {genre.charAt(0).toUpperCase() + genre.slice(1)}
           </option>

@@ -7,11 +7,21 @@ export function MovieList({
   selectedGenre = '',
   watchList,
   setWatchList,
+  sortBy = 'default',
 }) {
+  const getSortedMovies = (movies) => {
+    const sorted = [...movies];
+    if (sortBy === 'rating') {
+      sorted.sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating));
+    } else if (sortBy === 'alphabetical') {
+      sorted.sort((a, b) => a.title.localeCompare(b.title));
+    }
+    return sorted;
+  };
   return (
     <div className={styles.movieGrid}>
-      {movies
-        .filter((movie) => {
+      {getSortedMovies(
+        movies.filter((movie) => {
           const title = movie.title.toLowerCase() ?? '';
           const filter = (filterTitle ?? '').toLowerCase();
 
@@ -20,9 +30,9 @@ export function MovieList({
 
           return matchesTitle && matchesGenre;
         })
-        .map((movie) => (
-          <Card key={movie.id} movie={movie} watchList={watchList} setWatchList={setWatchList} />
-        ))}
+      ).map((movie) => (
+        <Card key={movie.id} movie={movie} watchList={watchList} setWatchList={setWatchList} />
+      ))}
     </div>
   );
 }

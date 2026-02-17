@@ -7,6 +7,7 @@ function FilterableMovieList({ movies, watchList, setWatchList }) {
   const genres = [...new Set(movies.map((movie) => movie.genre))];
   const [filterTitle, setFilterTitle] = useState('');
   const [selectedGenre, setSelectedGenre] = useState('');
+  const [sortBy, setSortBy] = useState('default');
 
   return (
     <div className={style.movieContainer}>
@@ -16,6 +17,8 @@ function FilterableMovieList({ movies, watchList, setWatchList }) {
         selectedGenre={selectedGenre}
         onFilterTitleChange={setFilterTitle}
         onSelectedGenreChange={setSelectedGenre}
+        sortBy={sortBy}
+        onSortChange={setSortBy}
       />
       <MovieList
         selectedGenre={selectedGenre}
@@ -23,6 +26,7 @@ function FilterableMovieList({ movies, watchList, setWatchList }) {
         movies={movies}
         watchList={watchList}
         setWatchList={setWatchList}
+        sortBy={sortBy}
       />
     </div>
   );
