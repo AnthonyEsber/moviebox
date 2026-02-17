@@ -1,14 +1,7 @@
 import Card from '../Card/Card';
 import styles from './MovieList.module.css';
 
-export function MovieList({
-  movies,
-  filterTitle = null,
-  selectedGenre = '',
-  watchList,
-  setWatchList,
-  sortBy = 'default',
-}) {
+export function MovieList({ movies, filterTitle = null, selectedGenre = '', sortBy = 'default' }) {
   const getSortedMovies = (movies) => {
     const sorted = [...movies];
     if (sortBy === 'rating') {
@@ -31,7 +24,7 @@ export function MovieList({
           return matchesTitle && matchesGenre;
         })
       ).map((movie) => (
-        <Card key={movie.id} movie={movie} watchList={watchList} setWatchList={setWatchList} />
+        <Card key={movie.id} movie={movie} />
       ))}
     </div>
   );

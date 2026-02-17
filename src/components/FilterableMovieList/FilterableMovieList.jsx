@@ -3,7 +3,7 @@ import MovieList from '../MovieList/MovieList';
 import SearchFilters from '../SearchFilters/SearchFilters';
 import style from './FilterableMovieList.module.css';
 
-function FilterableMovieList({ movies, watchList, setWatchList }) {
+function FilterableMovieList({ movies }) {
   const genres = [...new Set(movies.map((movie) => movie.genre))];
   const [filterTitle, setFilterTitle] = useState('');
   const [selectedGenre, setSelectedGenre] = useState('');
@@ -24,8 +24,6 @@ function FilterableMovieList({ movies, watchList, setWatchList }) {
         selectedGenre={selectedGenre}
         filterTitle={filterTitle}
         movies={movies}
-        watchList={watchList}
-        setWatchList={setWatchList}
         sortBy={sortBy}
       />
     </div>

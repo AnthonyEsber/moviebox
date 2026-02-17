@@ -1,0 +1,78 @@
+import { createPortal } from 'react-dom';
+import style from './MovieModal.module.css';
+import { useLocation, useNavigate, useParams } from 'react-router';
+import { useMoviesContext } from '../../hooks/useMoviesContext';
+import { useWLActions } from '../../hooks/useWLActions';
+import { DEFAULT_POSTER, getMoviePoster } from '../../utils/moviePoster';
+import { useEffect } from 'react';
+
+export default function MovieModal() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { movies } = useMoviesContext();
+
+  const movie = movies.find((m) => m.id === Number(id));
+  if (!movie) return null;
+
+  const hasHistory = location.state?.backgroundLocation;
+  const parentPath = location.pathname.replace(/\/movie\/\d+$/, '') || '/';
+
+  const onClose = () => (hasHistory ? navigate(-1) : navigate(parentPath));
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') onClose();
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+    };
+  });
+
+  const posterURL = getMoviePoster(movie.id);
+  const { isInWatchList, toggleWatchList } = useWLActions(movie);
+
+  return createPortal(
+    <div className={style.overlay}>
+      <div className={style.modal}>
+        <button className={style.closeButton} onClick={onClose}>
+          X
+        </button>
+        <div className={style.inner}>
+          <img className={style.poster} src={posterURL ? posterURL : DEFAULT_POSTER}></img>
+          <div className={style.content}>
+            <h2 className={style.title}>{movie?.title}</h2>
+            <div className={style.meta}>
+              <span className={style.genre}>{movie.genre}</span>
+              <span className={style.rating}>{movie.rating}</span>
+            </div>
+            <p className={style.description}>
+              No description available for <em>{movie.title}</em> yet.
+            </p>
+            {isInWatchList ? (
+              <button
+                className={`${style.watchListButton} ${style.removeButton}`}
+                onClick={toggleWatchList}
+              >
+                Remove from Watchlist
+              </button>
+            ) : (
+              <button
+                className={`${style.watchListButton} ${style.addButton}`}
+                onClick={toggleWatchList}
+              >
+                Add to Watchlist
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>,
+    document.body
+  );
+}
