@@ -19,7 +19,6 @@ const useLocalStorage = (key, defaultValue) => {
   });
 
   const setLocalStorageStateValue = (val) => {
-    console.log(val);
     let newValue;
 
     if (typeof val === 'function') {
