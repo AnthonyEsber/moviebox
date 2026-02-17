@@ -7,21 +7,30 @@ function SearchFilters({
   onFilterTitleChange,
   selectedGenre,
   onSelectedGenreChange,
+  sortBy,
+  onSortChange,
 }) {
   return (
     <div className={style.movieSearch}>
       <form>
         <span>BROWSE BY GENRE</span>
         <DropdownMenu
-          selectedGenre={selectedGenre}
-          onSelectedGenreChange={onSelectedGenreChange}
-          genres={genres}
+          selectedOption={selectedGenre}
+          onSelectOptionChange={onSelectedGenreChange}
+          options={genres}
         />
         <span>FIND A FILM</span>
         <input
           type="text"
           value={filterTitle}
           onChange={(e) => onFilterTitleChange(e.target.value)}
+        />
+        <span>SORTY BY</span>
+        <DropdownMenu
+          selectedOption={sortBy}
+          onSelectOptionChange={onSortChange}
+          options={['rating', 'alphabetical']}
+          isSorting
         />
       </form>
     </div>
