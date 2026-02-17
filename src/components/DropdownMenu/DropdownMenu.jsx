@@ -7,7 +7,6 @@ function DropdownMenu({ selectedOption, onSelectOptionChange, options, isSorting
         value={selectedOption}
         onChange={(e) => {
           onSelectOptionChange(e.target.value);
-          console.log(e.target.value);
         }}
       >
         {isSorting ? (

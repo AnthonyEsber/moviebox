@@ -1,41 +1,49 @@
 import styles from './Card.module.css';
+import { useLocation, useNavigate } from 'react-router';
+import { useWLActions } from '../../hooks/useWLActions';
+import { DEFAULT_POSTER, getMoviePoster } from '../../utils/moviePoster';
 
-function Card({ movie, watchList, setWatchList }) {
-  const posterURL = '/images/' + movie.id + '.jpg';
-  const defaultURL = '/images/default.jpg';
+function Card({ movie }) {
+  const posterURL = getMoviePoster(movie.id);
 
-  const isInWatchList = watchList.some((item) => item.id === movie.id);
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const findWLIndex = watchList.findIndex((item) => item.id === movie.id);
-
-  const handleWLRemoval = (watchList) => {
-    const tempCopy = [...watchList];
-    tempCopy.splice(findWLIndex, 1);
-    return tempCopy;
-  };
+  const { isInWatchList, toggleWatchList } = useWLActions(movie);
 
   return (
-    <div key={movie.id} className={styles.movieCard}>
-      <img className={styles.movieImage} src={posterURL ? posterURL : defaultURL}></img>
-      <div className={styles.movieTitle}>
-        <h3>{movie.title}</h3>
-      </div>
-      <div className={styles.movieDetails}>
-        <p className={styles.movieGenre}>{movie.genre}</p>
-        <p className={styles.movieRating}>{movie.rating}</p>
-      </div>
-      <div className={styles.movieWatchList}>
-        {isInWatchList ? (
-          <button onClick={() => setWatchList((watchList) => handleWLRemoval(watchList))}>
-            Added to Watchlist
+    <>
+      <div key={movie.id} className={styles.movieCard}>
+        <div
+          className={styles.movieCardInner}
+          onClick={() =>
+            navigate(`${location.pathname === '/' ? '' : location.pathname}/movie/${movie.id}`, {
+              state: { backgroundLocation: location },
+            })
+          }
+        >
+          <img className={styles.movieImage} src={posterURL ? posterURL : DEFAULT_POSTER}></img>
+          <div className={styles.movieTitle}>
+            <h3>{movie.title}</h3>
+          </div>
+          <div className={styles.movieDetails}>
+            <p className={styles.movieGenre}>{movie.genre}</p>
+            <p className={styles.movieRating}>{movie.rating}</p>
+          </div>
+        </div>
+
+        <div className={styles.movieWatchList}>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              toggleWatchList();
+            }}
+          >
+            {isInWatchList ? 'Added to Watchlist' : 'Add to Watchlist'}
           </button>
-        ) : (
-          <button onClick={() => setWatchList((watchList) => [...watchList, movie])}>
-            Add to Watchlist
-          </button>
-        )}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

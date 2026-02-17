@@ -13,6 +13,10 @@
   border-color: #00c030;
 }
 
+.movieCardInner {
+  cursor: pointer;
+}
+
 .movieDetails {
   display: flex;
   justify-content: space-between;

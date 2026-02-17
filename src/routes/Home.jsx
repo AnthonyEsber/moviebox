@@ -1,17 +1,13 @@
 import FilterableMovieList from '../components/FilterableMovieList/FilterableMovieList.jsx';
-import { useJsonLoad } from '../hooks/useJsonLoad';
-import { useWLContext } from '../hooks/useWLContext.js';
+import { useMoviesContext } from '../hooks/useMoviesContext.js';
 
 function Home() {
-  const { data: movies, loading, error } = useJsonLoad();
-  const { watchList, setWatchList } = useWLContext();
+  const { movies, loading, error } = useMoviesContext();
 
   return (
     <div className="main-content">
       {loading && <p>Loading...</p>}
-      {movies.length > 0 && (
-        <FilterableMovieList watchList={watchList} setWatchList={setWatchList} movies={movies} />
-      )}
+      {movies.length > 0 && <FilterableMovieList movies={movies} />}
       {error && <p>{error}</p>}
     </div>
   );
