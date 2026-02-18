@@ -15,7 +15,7 @@ nav .navLink {
   font-weight: 500;
   cursor: pointer;
   font-family: 'Inter', sans-serif;
-  transition: all 0.2s ease;
+  transition: color 0.2s ease;
   text-decoration: none;
   letter-spacing: 0.5px;
   text-transform: uppercase;
