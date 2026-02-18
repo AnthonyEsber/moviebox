@@ -13,11 +13,9 @@ export default function MovieModal() {
   const { movies } = useMoviesContext();
 
   const movie = movies.find((m) => m.id === Number(id));
-  if (!movie) return null;
 
   const hasHistory = location.state?.backgroundLocation;
   const parentPath = location.pathname.replace(/\/movie\/\d+$/, '') || '/';
-
   const onClose = () => (hasHistory ? navigate(-1) : navigate(parentPath));
 
   useEffect(() => {
@@ -32,13 +30,25 @@ export default function MovieModal() {
       document.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = '';
     };
-  });
+  }, []);
 
-  const posterURL = getMoviePoster(movie.id);
+  const handleOverlayClick = (e) => {
+    if (e.target === e.currentTarget) onClose();
+  };
+
+  if (!movie) return null;
+
+  return (
+    <MovieModalContent movie={movie} onClose={onClose} handleOverlayClick={handleOverlayClick} />
+  );
+}
+
+function MovieModalContent({ movie, onClose, handleOverlayClick }) {
   const { isInWatchList, toggleWatchList } = useWLActions(movie);
+  const posterURL = getMoviePoster(movie.id);
 
   return createPortal(
-    <div className={style.overlay}>
+    <div className={style.overlay} onClick={handleOverlayClick}>
       <div className={style.modal}>
         <button className={style.closeButton} onClick={onClose}>
           X
