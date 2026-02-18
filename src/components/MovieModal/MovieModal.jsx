@@ -15,7 +15,7 @@ export default function MovieModal() {
   const movie = movies.find((m) => m.id === Number(id));
 
   const hasHistory = location.state?.backgroundLocation;
-  const parentPath = location.pathname.replace(/\/movie\/\d+$/, '') || '/';
+  const parentPath = location.pathname.replace(/\/movie\/\d+.*$/, '') || '/';
   const onClose = () => (hasHistory ? navigate(-1) : navigate(parentPath));
 
   useEffect(() => {
@@ -36,7 +36,22 @@ export default function MovieModal() {
     if (e.target === e.currentTarget) onClose();
   };
 
-  if (!movie) return null;
+  if (!movie) {
+    return createPortal(
+      <div className={style.overlay} onClick={handleOverlayClick}>
+        <div className={style.modal}>
+          <button className={style.closeButton} onClick={onClose}>
+            X
+          </button>
+          <div className={style.content}>
+            <h2>Movie not found</h2>
+            <p>The movie you&apos;re looking for doesn&apos;t exist or may have been removed.</p>
+          </div>
+        </div>
+      </div>,
+      document.body
+    );
+  }
 
   return (
     <MovieModalContent movie={movie} onClose={onClose} handleOverlayClick={handleOverlayClick} />
