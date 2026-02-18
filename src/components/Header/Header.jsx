@@ -3,10 +3,18 @@ import styles from './Header.module.css';
 function Header() {
   return (
     <nav>
-      <NavLink className={styles.navLink} to="/">
+      <NavLink
+        className={({ isActive }) => `${styles.navLink} ${isActive ? styles.active : ''}`}
+        to="/"
+        end
+      >
         Home
       </NavLink>
-      <NavLink className={styles.navLink} to="/watchlist">
+      <NavLink
+        className={({ isActive }) => `${styles.navLink} ${isActive ? styles.active : ''}`}
+        to="/watchlist"
+        end
+      >
         Watch List
       </NavLink>
     </nav>
