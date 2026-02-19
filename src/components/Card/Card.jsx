@@ -1,7 +1,8 @@
 import styles from './Card.module.css';
 import { useLocation, useNavigate } from 'react-router';
-import { useWLActions } from '../../hooks/useWLActions';
 import { DEFAULT_POSTER, getMoviePoster } from '../../utils/moviePoster';
+import { useDispatch, useSelector } from 'react-redux';
+import { movieToggled, selectIsInWatchlist } from '../../store/watchlistSlice';
 
 function Card({ movie }) {
   const posterURL = getMoviePoster(movie.id);
@@ -9,7 +10,9 @@ function Card({ movie }) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { isInWatchList, toggleWatchList } = useWLActions(movie);
+  const dispatch = useDispatch();
+
+  const isInWatchList = useSelector(selectIsInWatchlist(movie.id));
 
   return (
     <>
@@ -36,7 +39,7 @@ function Card({ movie }) {
           <button
             onClick={(e) => {
               e.stopPropagation();
-              toggleWatchList();
+              dispatch(movieToggled(movie));
             }}
           >
             {isInWatchList ? 'Added to Watchlist' : 'Add to Watchlist'}

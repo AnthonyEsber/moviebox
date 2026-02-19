@@ -1,11 +1,30 @@
+import { useDispatch, useSelector } from 'react-redux';
 import MovieList from '../components/MovieList/MovieList';
-import { useWLContext } from '../hooks/useWLContext';
 import empty from '../styles/EmptyState.module.css';
+import styles from '../styles/WatchList.module.css';
 import { Link } from 'react-router';
+import { corruptedMsgDismissed, watchListCleared } from '../store/watchlistSlice';
 
 function WatchList() {
-  const { watchList } = useWLContext();
-  if (watchList.length === 0) {
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state.watchlist.data);
+  const wasCorrupted = useSelector((state) => state.watchlist.wasCorrupted);
+
+  if (wasCorrupted) {
+    return (
+      <div className={empty.emptyState}>
+        <p>Your watchlist data was corrupted</p>
+        <p>
+          Invalid data was detected in your saved watchlist. It has been auto-cleared to prevent
+          issues.
+        </p>
+        <button className={empty.emptyAction} onClick={dispatch(corruptedMsgDismissed())}>
+          OK
+        </button>
+      </div>
+    );
+  }
+  if (data.length === 0) {
     return (
       <div className={empty.emptyState}>
         <p>Your watchlist is empty</p>
@@ -16,6 +35,20 @@ function WatchList() {
       </div>
     );
   }
-  return <MovieList movies={watchList} />;
+  return (
+    <div>
+      <button
+        className={styles.clearButton}
+        onClick={() => {
+          if (window.confirm('Clear your entire watchlist?')) {
+            dispatch(watchListCleared());
+          }
+        }}
+      >
+        Clear Watchlist
+      </button>
+      <MovieList movies={data} />
+    </div>
+  );
 }
 export default WatchList;
