@@ -1,10 +1,10 @@
 import { createPortal } from 'react-dom';
 import style from './MovieModal.module.css';
 import { useLocation, useNavigate, useParams } from 'react-router';
-import { useWLActions } from '../../hooks/useWLActions';
 import { DEFAULT_POSTER, getMoviePoster } from '../../utils/moviePoster';
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { movieToggled, selectIsInWatchlist } from '../../store/watchlistSlice';
 
 export default function MovieModal() {
   const { id } = useParams();
@@ -60,7 +60,9 @@ export default function MovieModal() {
 }
 
 function MovieModalContent({ movie, onClose, handleOverlayClick }) {
-  const { isInWatchList, toggleWatchList } = useWLActions(movie);
+  const dispatch = useDispatch();
+
+  const isInWatchList = useSelector(selectIsInWatchlist(movie.id));
   const posterURL = getMoviePoster(movie.id);
 
   return createPortal(
@@ -83,14 +85,14 @@ function MovieModalContent({ movie, onClose, handleOverlayClick }) {
             {isInWatchList ? (
               <button
                 className={`${style.watchListButton} ${style.removeButton}`}
-                onClick={toggleWatchList}
+                onClick={() => dispatch(movieToggled(movie))}
               >
                 Remove from Watchlist
               </button>
             ) : (
               <button
                 className={`${style.watchListButton} ${style.addButton}`}
-                onClick={toggleWatchList}
+                onClick={() => dispatch(movieToggled(movie))}
               >
                 Add to Watchlist
               </button>
