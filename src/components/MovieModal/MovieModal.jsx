@@ -1,18 +1,19 @@
 import { createPortal } from 'react-dom';
 import style from './MovieModal.module.css';
 import { useLocation, useNavigate, useParams } from 'react-router';
-import { useMoviesContext } from '../../hooks/useMoviesContext';
 import { useWLActions } from '../../hooks/useWLActions';
 import { DEFAULT_POSTER, getMoviePoster } from '../../utils/moviePoster';
 import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 export default function MovieModal() {
   const { id } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
-  const { movies } = useMoviesContext();
 
-  const movie = movies.find((m) => m.id === Number(id));
+  const { data } = useSelector((state) => state.movies);
+
+  const movie = data.find((m) => m.id === Number(id));
 
   const hasHistory = location.state?.backgroundLocation;
   const parentPath = location.pathname.replace(/\/movie\/\d+.*$/, '') || '/';

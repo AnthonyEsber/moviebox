@@ -1,9 +1,9 @@
+import { useSelector } from 'react-redux';
 import FilterableMovieList from '../components/FilterableMovieList/FilterableMovieList.jsx';
-import { useMoviesContext } from '../hooks/useMoviesContext.js';
 import empty from '../styles/EmptyState.module.css';
 
 function Home() {
-  const { movies, loading, error } = useMoviesContext();
+  const { data, loading, error } = useSelector((state) => state.movies);
 
   if (loading) {
     return (
@@ -24,7 +24,7 @@ function Home() {
     </div>;
   }
 
-  if (movies.length === 0) {
+  if (data.length === 0) {
     return (
       <div className={empty.movieGrid}>
         <div className={empty.emptyState}>
@@ -36,7 +36,7 @@ function Home() {
       </div>
     );
   }
-  return <FilterableMovieList movies={movies} />;
+  return <FilterableMovieList movies={data} />;
 }
 
 export default Home;

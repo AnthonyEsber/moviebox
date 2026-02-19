@@ -3,28 +3,34 @@ import Home from '../routes/Home';
 import WatchList from '../routes/WatchList';
 import { WLProvider } from '../utils/WLContext';
 import MainLayout from '../layouts/MainLayout';
-import { MovieProvider } from '../utils/MovieContext';
 import MovieModal from '../components/MovieModal/MovieModal';
 import ModalLayout from '../layouts/ModalLayout';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { fetchMovies } from '../store/movieSlice';
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchMovies());
+  }, [dispatch]);
+
   return (
-    <MovieProvider>
-      <WLProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route element={<MainLayout />}>
-              <Route path="/" element={<ModalLayout page={<Home />} />}>
-                <Route path="movie/:id" element={<MovieModal />} />
-              </Route>
-              <Route path="/watchlist" element={<ModalLayout page={<WatchList />} />}>
-                <Route path="movie/:id" element={<MovieModal />} />
-              </Route>
+    <WLProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<MainLayout />}>
+            <Route path="/" element={<ModalLayout page={<Home />} />}>
+              <Route path="movie/:id" element={<MovieModal />} />
             </Route>
-          </Routes>
-        </BrowserRouter>
-      </WLProvider>
-    </MovieProvider>
+            <Route path="/watchlist" element={<ModalLayout page={<WatchList />} />}>
+              <Route path="movie/:id" element={<MovieModal />} />
+            </Route>
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </WLProvider>
   );
 }
 
