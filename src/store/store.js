@@ -8,3 +8,12 @@ export const store = configureStore({
     watchlist: watchlistReducer,
   },
 });
+
+store.subscribe(() => {
+  const { data } = store.getState().watchlist;
+  try {
+    localStorage.setItem('watchList', JSON.stringify(data));
+  } catch (err) {
+    console.log('Failed to save watchlist to localStorage', err);
+  }
+});

@@ -18,7 +18,7 @@ function WatchList() {
           Invalid data was detected in your saved watchlist. It has been auto-cleared to prevent
           issues.
         </p>
-        <button className={empty.emptyAction} onClick={dispatch(corruptedMsgDismissed())}>
+        <button className={empty.emptyAction} onClick={() => dispatch(corruptedMsgDismissed())}>
           OK
         </button>
       </div>
