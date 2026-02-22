@@ -1,7 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router';
 import Home from '../routes/Home';
 import WatchList from '../routes/WatchList';
-
 import MainLayout from '../layouts/MainLayout';
 import MovieModal from '../components/MovieModal/MovieModal';
 import ModalLayout from '../layouts/ModalLayout';

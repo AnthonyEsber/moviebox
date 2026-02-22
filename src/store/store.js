@@ -1,19 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import movieReducer from './movieSlice';
 import watchlistReducer from './watchlistSlice';
+import { watchlistListener } from './wMiddleware';
 
 export const store = configureStore({
   reducer: {
     movies: movieReducer,
     watchlist: watchlistReducer,
   },
-});
-
-store.subscribe(() => {
-  const { data } = store.getState().watchlist;
-  try {
-    localStorage.setItem('watchList', JSON.stringify(data));
-  } catch (err) {
-    console.log('Failed to save watchlist to localStorage', err);
-  }
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().prepend(watchlistListener.middleware),
 });
