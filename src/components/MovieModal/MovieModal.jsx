@@ -31,7 +31,7 @@ export default function MovieModal() {
       document.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = '';
     };
-  }, []);
+  }, [onClose]);
 
   const handleOverlayClick = (e) => {
     if (e.target === e.currentTarget) onClose();

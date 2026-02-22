@@ -14,31 +14,31 @@ function isValidWatchList(value) {
   );
 }
 
-function loadInitialState() {
+function loadInitialData() {
   try {
     const raw = localStorage.getItem('watchList');
 
-    if (raw === null) return { data: [], wasCorrupted: false };
+    if (raw === null) return [];
 
     const parsed = JSON.parse(raw);
 
     if (!isValidWatchList(parsed)) {
       console.log('watchlist data corrupted! cleaning...');
       localStorage.removeItem('watchList');
-      return { data: [], wasCorrupted: true };
+      return [];
     }
 
-    return { data: parsed, wasCorrupted: false };
+    return parsed;
   } catch (err) {
     console.log(err);
     localStorage.removeItem('watchList');
-    return { data: [], wasCorrupted: true };
+    return [];
   }
 }
 
 const watchlistSlice = createSlice({
   name: 'watchlist',
-  initialState: loadInitialState(),
+  initialState: { data: loadInitialData() },
   reducers: {
     movieAdded: (state, action) => {
       const movie = action.payload;
@@ -61,16 +61,11 @@ const watchlistSlice = createSlice({
     },
     watchListCleared: (state) => {
       state.data = [];
-      state.wasCorrupted = false;
-    },
-    corruptedMsgDismissed: (state) => {
-      state.wasCorrupted = false;
     },
   },
 });
 
-export const { movieAdded, movieRemoved, movieToggled, watchListCleared, corruptedMsgDismissed } =
-  watchlistSlice.actions;
+export const { movieAdded, movieRemoved, movieToggled, watchListCleared } = watchlistSlice.actions;
 
 export default watchlistSlice.reducer;
 

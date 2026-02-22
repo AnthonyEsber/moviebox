@@ -1,6 +1,7 @@
 import Card from '../Card/Card';
 import styles from './MovieList.module.css';
 import empty from '../../styles/EmptyState.module.css';
+import { useMemo } from 'react';
 
 export function MovieList({
   movies,
@@ -19,17 +20,19 @@ export function MovieList({
     return sorted;
   };
 
-  const filteredMovies = getSortedMovies(
-    movies.filter((movie) => {
-      const title = movie.title.toLowerCase() ?? '';
-      const filter = (filterTitle ?? '').toLowerCase();
+  const filteredMovies = useMemo(() => {
+    return getSortedMovies(
+      movies.filter((movie) => {
+        const title = movie.title.toLowerCase() ?? '';
+        const filter = (filterTitle ?? '').toLowerCase();
 
-      const matchesTitle = title.includes(filter);
-      const matchesGenre = selectedGenre === '' ? true : movie.genre === selectedGenre;
+        const matchesTitle = title.includes(filter);
+        const matchesGenre = selectedGenre === '' ? true : movie.genre === selectedGenre;
 
-      return matchesTitle && matchesGenre;
-    })
-  );
+        return matchesTitle && matchesGenre;
+      })
+    );
+  }, [movies, filterTitle, selectedGenre, sortBy]);
 
   return (
     <div className={styles.movieGrid}>
